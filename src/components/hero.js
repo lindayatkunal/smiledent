@@ -178,10 +178,14 @@ export default function PageWithHeroAndUSP() {
   return (
     <>
       {/* PART 1: The Main Hero Section */}
-      <section
-        className="relative w-full h-screen text-white overflow-hidden flex items-center justify-center"
-        style={{ backgroundImage: `url('/images/hero/clinic3.jpg')` }}
-      >
+      <section className="relative w-full h-screen flex items-center justify-center text-white">
+        <Image
+          src="/images/hero/clinic3.jpg"
+          alt="Clinic Hero"
+          fill
+          priority
+          className="object-cover object-center"
+        />
         {/* Background Overlay */}
         <div className="absolute inset-0 bg-slate-900/70" />
 
@@ -241,15 +245,17 @@ export default function PageWithHeroAndUSP() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="mx-auto w-75 h-80 rounded-2xl overflow-hidden shadow-2xl border-2 border-amber-400/30"
+              className="mx-auto w-full max-w-sm relative rounded-2xl overflow-hidden shadow-2xl border-2 border-amber-400/30"
             >
-
-              <Image
-                src={img2}
-                alt="Dental Care Excellence"
-                fill   // or use width / height if you prefer
-                className="object-cover"
-              />
+              {/* Aspect ratio box */}
+              <div className="relative w-full pb-[100%]">
+                <Image
+                  src={img2}
+                  alt="Dental Care Excellence"
+                  fill
+                  className="object-cover"
+                />
+              </div>
             </motion.div>
 
             {/* Button with proper spacing */}
