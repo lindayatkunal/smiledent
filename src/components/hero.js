@@ -8,6 +8,7 @@ import { Megrim, Delius_Swash_Caps, Oleo_Script, Playfair_Display } from "next/f
 import { FaTooth, FaSmile, FaTrophy } from 'react-icons/fa';
 import { GiArtificialIntelligence, GiTrophy } from 'react-icons/gi';
 import { MdHealing } from 'react-icons/md';
+import Image from 'next/image';
 import img1 from "/public/Images/text_bg.jpg"
 import img2 from "/public/Images/about/1.jpg"
 
