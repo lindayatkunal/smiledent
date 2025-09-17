@@ -242,10 +242,12 @@ export default function PageWithHeroAndUSP() {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="mx-auto w-75 h-80 rounded-2xl overflow-hidden shadow-2xl border-2 border-amber-400/30"
             >
-              <img
-                src={img2.src}
+
+              <Image
+                src={img2}
                 alt="Dental Care Excellence"
-                className="w-full h-full object-cover"
+                fill   // or use width / height if you prefer
+                className="object-cover"
               />
             </motion.div>
 

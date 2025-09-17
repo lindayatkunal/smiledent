@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef, useMemo, useEffect } from "react";
+import { useState, useRef, useMemo, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { FaTooth } from "react-icons/fa";
 
@@ -25,24 +25,28 @@ export default function DentalNavbar() {
   const [line, setLine] = useState({ left: 0, width: 0, visible: false });
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const moveLine = (index) => {
-    const btn = itemRefs[index]?.current;
-    const container = containerRef.current;
-    if (!btn || !container) return;
+  // ✅ Memoize moveLine so ESLint doesn't complain
+  const moveLine = useCallback(
+    (index) => {
+      const btn = itemRefs[index]?.current;
+      const container = containerRef.current;
+      if (!btn || !container) return;
 
-    const btnRect = btn.getBoundingClientRect();
-    const parentRect = container.getBoundingClientRect();
+      const btnRect = btn.getBoundingClientRect();
+      const parentRect = container.getBoundingClientRect();
 
-    setLine({
-      left: btnRect.left - parentRect.left,
-      width: btnRect.width,
-      visible: true,
-    });
-  };
+      setLine({
+        left: btnRect.left - parentRect.left,
+        width: btnRect.width,
+        visible: true,
+      });
+    },
+    [itemRefs]
+  );
 
   const handleNavClick = (index, href) => {
     setActiveIndex(index);
-    setMenuOpen(false); // close menu on mobile click
+    setMenuOpen(false);
 
     if (href === "#") {
       window.scrollTo({ top: 0, behavior: "smooth" });
@@ -59,19 +63,12 @@ export default function DentalNavbar() {
     const onResize = () => moveLine(activeIndex);
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
-  }, [activeIndex]);
+  }, [activeIndex, moveLine]); // ✅ added moveLine
 
   return (
     <div className="w-full fixed top-0 left-0 z-50 flex justify-center py-0">
-    <nav className="w-full max-w-7xl">
+      <nav className="w-full max-w-7xl">
         <div className="relative flex items-center justify-between rounded-2xl border border-amber-300/20 bg-slate-900/60 px-6 py-4 backdrop-blur-lg shadow-[0_8px_30px_rgba(0,0,0,0.4)]">
-          
-          {/* Left logo
-          <div className="flex items-center gap-2 text-amber-400 font-bold">
-            <FaTooth className="text-2xl" />
-            <span className="text-lg">DentalCare</span>
-          </div> */}
-
           {/* Desktop nav */}
           <div
             ref={containerRef}
@@ -82,11 +79,10 @@ export default function DentalNavbar() {
                 key={item.label}
                 ref={itemRefs[i]}
                 onClick={() => handleNavClick(i, item.href)}
-                className={`relative px-3 py-1 text-[15px] font-semibold cursor-pointer tracking-wide transition-all duration-500 ${
-                  activeIndex === i
+                className={`relative px-3 py-1 text-[15px] font-semibold cursor-pointer tracking-wide transition-all duration-500 ${activeIndex === i
                     ? "text-amber-300"
                     : "text-slate-300 hover:text-amber-200"
-                }`}
+                  }`}
               >
                 <motion.span
                   animate={{
@@ -168,11 +164,10 @@ export default function DentalNavbar() {
               <button
                 key={item.label}
                 onClick={() => handleNavClick(i, item.href)}
-                className={`text-lg font-semibold tracking-wide ${
-                  activeIndex === i
+                className={`text-lg font-semibold tracking-wide ${activeIndex === i
                     ? "text-amber-300"
                     : "text-slate-300 hover:text-amber-200"
-                }`}
+                  }`}
               >
                 {item.label}
               </button>

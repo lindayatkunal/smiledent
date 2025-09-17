@@ -350,7 +350,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="inline-block"
           >
-            <img
+            <Image
               src="/Images/footer_copyright.png"
               alt="Mastermind Web Developers"
               className="h-20 w-auto mx-auto"
@@ -530,7 +530,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="inline-block align-middle hover:scale-110 transition-transform"
           >
-            <img
+            <Image
               src="/Images/footer_copyright.png"
               alt="Mastermind Web Developers"
               className="h-32 w-auto"
