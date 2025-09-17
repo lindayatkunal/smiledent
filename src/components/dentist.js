@@ -39,7 +39,6 @@ const item = {
 // Array of doctor images
 const doctorImages = [
   "/Images/Dentist/dr1.jpg",
-  
   "/Images/Dentist/dr3.jpg",
   "/Images/Dentist/dr4.jpg",
   "/Images/Dentist/dr5.jpg",
@@ -50,13 +49,12 @@ const doctorImages = [
   "/Images/Dentist/dr8.jpg",
   "/Images/Dentist/dr9.jpg",
   "/Images/Dentist/dr12.jpg",
-
 ];
 
-// Mobile Swiper Component
+// Mobile Swiper Component - FIXED IMAGE CROPPING
 const MobileDoctorSwiper = ({ doctorImages, currentSlide, setCurrentSlide }) => {
   return (
-    <div className="block sm:hidden w-full h-64 rounded-2xl overflow-hidden bg-slate-800/30 backdrop-blur-sm border border-white/10">
+    <div className="block sm:hidden w-full h-96 rounded-2xl overflow-hidden bg-slate-800/30 backdrop-blur-sm border border-white/10">
       <Swiper
         modules={[Autoplay, Pagination]}
         slidesPerView={1}
@@ -81,14 +79,12 @@ const MobileDoctorSwiper = ({ doctorImages, currentSlide, setCurrentSlide }) => 
                 src={src}
                 alt={`Dr. Tushar Mane - Professional image ${i + 1}`}
                 fill
-                className="object-cover"
+                className="object-contain"
                 sizes="100vw"
                 priority={i === 0}
                 quality={85}
               />
-              {/* Mobile slide overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-transparent to-transparent" />
-              {/* Slide indicator */}
               <div className="absolute top-3 right-3 bg-amber-400/20 backdrop-blur-sm rounded-full px-2 py-1">
                 <span className="text-white text-xs font-semibold">
                   {i + 1}/{doctorImages.length}
@@ -119,9 +115,7 @@ export default function Doctor() {
       id="dentist"
       className="relative bg-transparent py-8 sm:py-16 md:py-20 px-4 sm:px-10 overflow-hidden"
     >
-      {/* Enhanced CSS for sliders */}
       <style jsx global>{`
-        /* Mobile doctor swiper styles */
         .mobile-doctor-swiper .swiper-slide {
           border-radius: 16px;
         }
@@ -142,7 +136,6 @@ export default function Doctor() {
           transform: scale(1.2);
         }
 
-        /* Desktop swiper styles */
         .swiper-button-next, .swiper-button-prev { 
           color: #FBBF24 !important; 
           background: rgba(6, 20, 40, 0.8) !important;
@@ -184,9 +177,8 @@ export default function Doctor() {
 
       <div className="relative z-10 container mx-auto">
 
-        {/* Mobile Layout - Following About Us syntax: Heading → Images → Description */}
+        {/* Mobile Layout */}
         <div className="block sm:hidden space-y-6">
-          {/* Mobile Heading */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -210,15 +202,14 @@ export default function Doctor() {
             </p>
           </motion.div>
 
-          {/* Mobile Images - Increased Height */}
+          {/* Mobile Images - Increased Height with Better Image Positioning */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             viewport={{ once: true }}
           >
-            {/* Updated MobileDoctorSwiper with increased height */}
-            <div className="w-full h-80 rounded-2xl overflow-hidden bg-slate-800/30 backdrop-blur-sm border border-white/10">
+            <div className="w-full h-96 rounded-2xl overflow-hidden bg-slate-800/30 backdrop-blur-sm border border-white/10">
               <Swiper
                 modules={[Autoplay, Pagination]}
                 slidesPerView={1}
@@ -243,14 +234,12 @@ export default function Doctor() {
                         src={src}
                         alt={`Dr. Tushar Mane - Professional image ${i + 1}`}
                         fill
-                        className="object-cover"
+                        className="object-contain"
                         sizes="100vw"
                         priority={i === 0}
                         quality={85}
                       />
-                      {/* Mobile slide overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-transparent to-transparent" />
-                      {/* Slide indicator */}
                       <div className="absolute top-3 right-3 bg-amber-400/20 backdrop-blur-sm rounded-full px-2 py-1">
                         <span className="text-white text-xs font-semibold">
                           {i + 1}/{doctorImages.length}
@@ -263,8 +252,6 @@ export default function Doctor() {
             </div>
           </motion.div>
 
-
-          {/* Mobile Description - Full Content with View More */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -286,12 +273,10 @@ export default function Doctor() {
 
               return (
                 <>
-                  {/* First paragraph always visible */}
                   <p className="text-slate-300 text-sm leading-relaxed mb-4">
                     {fullDescriptions[0]}
                   </p>
 
-                  {/* Remaining paragraphs with View More functionality */}
                   {showMore && (
                     <>
                       <p className="text-slate-300 text-sm leading-relaxed mb-4">
@@ -303,7 +288,6 @@ export default function Doctor() {
                     </>
                   )}
 
-                  {/* View More / View Less Button */}
                   <button
                     onClick={() => setShowMore(!showMore)}
                     className="text-amber-400 hover:text-amber-300 font-semibold text-sm underline transition-colors duration-300 mb-4"
@@ -311,7 +295,6 @@ export default function Doctor() {
                     {showMore ? 'View Less' : 'View More'}
                   </button>
 
-                  {/* Mobile highlights - 2 columns compact */}
                   <div className="grid grid-cols-1 gap-2 mb-4">
                     {points.slice(0, 4).map((p, index) => (
                       <motion.div
@@ -328,7 +311,6 @@ export default function Doctor() {
                     ))}
                   </div>
 
-                  {/* Mobile CTA */}
                   <motion.a
                     href="#contact"
                     className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-amber-400 to-amber-500 px-4 py-2 font-semibold text-[#061428] shadow-lg text-sm w-full justify-center"
@@ -337,7 +319,6 @@ export default function Doctor() {
                     Book Consultation
                   </motion.a>
 
-                  {/* Subtle corner glow */}
                   <span className="pointer-events-none absolute -right-2 -bottom-2 h-12 w-12 rounded-full bg-amber-400/10 blur-xl" />
                 </>
               );
@@ -348,7 +329,6 @@ export default function Doctor() {
 
         {/* Desktop Layout - Unchanged */}
         <div className="hidden sm:block">
-          {/* Headings */}
           <motion.div
             variants={container}
             initial="hidden"
@@ -370,14 +350,12 @@ export default function Doctor() {
             </motion.p>
           </motion.div>
 
-          {/* Content card - Updated grid proportions */}
           <motion.div
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.2 }}
             className="mt-10 grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-10 max-w-9xl mx-auto justify-center items-center"
           >
-            {/* Text block - Increased from lg:col-auto to lg:col-span-3 */}
             <motion.div
               variants={item}
               className="relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 sm:p-8 lg:col-span-3"
@@ -407,7 +385,6 @@ export default function Doctor() {
                 expertise near you.
               </p>
 
-              {/* Highlights */}
               <ul className="mt-6 grid grid-cols-2 gap-x-8 gap-y-3">
                 {points.map((p, index) => (
                   <motion.li
@@ -424,7 +401,6 @@ export default function Doctor() {
                 ))}
               </ul>
 
-              {/* CTA */}
               <div className="mt-8">
                 <motion.a
                   href="#contact"
@@ -439,23 +415,19 @@ export default function Doctor() {
                 </motion.a>
               </div>
 
-              {/* Subtle corner glow */}
               <span className="pointer-events-none absolute -right-4 -bottom-4 h-20 w-20 rounded-full bg-amber-400/10 blur-xl" />
             </motion.div>
 
-            {/* Enhanced Image Slider - Decreased from lg:col-auto to lg:col-span-2 */}
             <motion.div
               variants={item}
               className="relative lg:col-span-2"
             >
               <div className="doctor-slider-container relative h-[450px] sm:h-[500px] lg:h-[650px] shadow-2xl">
 
-                {/* Background pattern for depth */}
                 <div className="absolute inset-0 opacity-20">
                   <div className="absolute inset-0 bg-gradient-to-br from-amber-400/20 via-transparent to-transparent" />
                 </div>
 
-                {/* Enhanced Swiper */}
                 <Swiper
                   modules={[Autoplay, Pagination, Navigation, EffectCoverflow]}
                   className="absolute inset-0 z-10"
@@ -518,10 +490,8 @@ export default function Doctor() {
                           />
                         </div>
 
-                        {/* Slide overlay effects */}
                         <div className="absolute inset-0 bg-gradient-to-t from-[#061428]/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-                        {/* Image label */}
                         <motion.div
                           className="absolute bottom-4 left-4 right-4"
                           initial={{ opacity: 0, y: 20 }}
@@ -531,7 +501,6 @@ export default function Doctor() {
                           }}
                           transition={{ duration: 0.5, delay: 0.2 }}
                         >
-
                         </motion.div>
                       </motion.div>
                     </SwiperSlide>
@@ -539,7 +508,6 @@ export default function Doctor() {
                 </Swiper>
               </div>
 
-              {/* Image counter */}
               <motion.div
                 className="mt-4 text-center"
                 initial={{ opacity: 0, y: 10 }}
