@@ -1,26 +1,17 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { useState } from "react";
 import { FaStar, FaAward, FaTooth, FaUserMd, FaCheckCircle, FaXRay } from "react-icons/fa";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation, EffectCoverflow } from "swiper/modules";
 import Image from "next/image";
 import img1 from "/public/Images/text_bg.jpg";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
-
-/**
- * Theme alignment:
- * - Background: Deep blue matching the treatment section
- * - Accents: amber-300/400
- * - Cards: glassmorphism with backdrop-blur
- */
 
 const container = {
   hidden: { opacity: 0, y: 16 },
@@ -36,7 +27,6 @@ const item = {
   show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 120, damping: 16 } },
 };
 
-// Array of doctor images
 const doctorImages = [
   "/Images/Dentist/dr1.jpg",
   "/Images/Dentist/dr3.jpg",
@@ -51,55 +41,9 @@ const doctorImages = [
   "/Images/Dentist/dr12.jpg",
 ];
 
-// Mobile Swiper Component - FIXED IMAGE CROPPING
-const MobileDoctorSwiper = ({ doctorImages, currentSlide, setCurrentSlide }) => {
-  return (
-    <div className="block sm:hidden w-full h-96 rounded-2xl overflow-hidden bg-slate-800/30 backdrop-blur-sm border border-white/10">
-      <Swiper
-        modules={[Autoplay, Pagination]}
-        slidesPerView={1}
-        spaceBetween={10}
-        loop={true}
-        autoplay={{
-          delay: 3500,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true
-        }}
-        pagination={{
-          clickable: true,
-          dynamicBullets: true
-        }}
-        onSlideChange={(swiper) => setCurrentSlide(swiper.realIndex)}
-        className="w-full h-full mobile-doctor-swiper"
-      >
-        {doctorImages.map((src, i) => (
-          <SwiperSlide key={i}>
-            <div className="relative w-full h-full">
-              <Image
-                src={src}
-                alt={`Dr. Tushar Mane - Professional image ${i + 1}`}
-                fill
-                className="object-contain"
-                sizes="100vw"
-                priority={i === 0}
-                quality={85}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-transparent to-transparent" />
-              <div className="absolute top-3 right-3 bg-amber-400/20 backdrop-blur-sm rounded-full px-2 py-1">
-                <span className="text-white text-xs font-semibold">
-                  {i + 1}/{doctorImages.length}
-                </span>
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
-  );
-};
-
 export default function Doctor() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [showMore, setShowMore] = useState(false); // ✅ lifted here
 
   const points = [
     { icon: <FaStar className="text-amber-400" />, text: "18+ Years of Experience" },
@@ -110,71 +54,14 @@ export default function Doctor() {
     { icon: <FaXRay className="text-amber-400" />, text: "Owner of ScanX 3D CBCT Centre in Dombivli" },
   ];
 
+  const fullDescriptions = [
+    "Dr. Tushar Mane, a recognized dentist in Dombivli East, is highly skilled in dental care and advanced implant procedures, making him the preferred choice as a dentist near me. Dr. Mane specializes in a comprehensive range of dental services, including full mouth rehabilitation, dental implants, root canal treatment, dental veneers, teeth braces, pediatric dentistry, wisdom tooth extraction, teeth cleanings, and fillings, as well as complex treatments like the precise placement and restoration of full mouth reconstruction.",
+    "As the best dentist in Dombivli, Dr. Mane offers expertise in implantology, focusing on the surgical placement of dental implants to support various prostheses such as crowns, bridges, and dentures. His dedicated team collaborates closely with patients to assess their oral health needs and develop personalized treatment plans, ensuring smiles are rejuvenated and overall dental functionality is enhanced.",
+    "Discover exceptional dental care with Dr. Tushar Mane, the trusted dentist in Dombivli, serving patients in both Dombivli East. Contact us today to schedule an appointment and experience top-tier dental expertise near you."
+  ];
+
   return (
-    <section
-      id="dentist"
-      className="relative bg-transparent py-8 sm:py-16 md:py-20 px-4 sm:px-10 overflow-hidden"
-    >
-      <style jsx global>{`
-        .mobile-doctor-swiper .swiper-slide {
-          border-radius: 16px;
-        }
-        
-        .mobile-doctor-swiper .swiper-pagination {
-          bottom: 8px !important;
-        }
-        
-        .mobile-doctor-swiper .swiper-pagination-bullet {
-          width: 8px !important;
-          height: 8px !important;
-          background: rgba(255, 255, 255, 0.4) !important;
-          margin: 0 3px !important;
-        }
-        
-        .mobile-doctor-swiper .swiper-pagination-bullet-active {
-          background: #FCD34D !important;
-          transform: scale(1.2);
-        }
-
-        .swiper-button-next, .swiper-button-prev { 
-          color: #FBBF24 !important; 
-          background: rgba(6, 20, 40, 0.8) !important;
-          width: 44px !important;
-          height: 44px !important;
-          margin-top: -22px !important;
-          border-radius: 50% !important;
-          backdrop-filter: blur(10px);
-          transition: all 0.3s ease !important;
-          border: 1px solid rgba(251, 191, 36, 0.3);
-        }
-        .swiper-button-next:hover, .swiper-button-prev:hover {
-          transform: scale(1.1);
-          background: rgba(251, 191, 36, 0.2) !important;
-          box-shadow: 0 8px 25px rgba(251, 191, 36, 0.3);
-        }
-        .swiper-pagination {
-          bottom: 15px !important;
-        }
-        .swiper-pagination-bullet {
-          width: 10px !important;
-          height: 10px !important;
-          background: rgba(255, 255, 255, 0.3) !important;
-          transition: all 0.3s ease !important;
-        }
-        .swiper-pagination-bullet-active {
-          background: #FBBF24 !important;
-          transform: scale(1.3);
-          box-shadow: 0 0 15px rgba(251, 191, 36, 0.8);
-        }
-        .doctor-slider-container {
-          border-radius: 1rem;
-          overflow: hidden;
-          background: rgba(10, 23, 48, 0.6);
-          backdrop-filter: blur(20px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-      `}</style>
-
+    <section id="dentist" className="relative bg-transparent py-8 sm:py-16 md:py-20 px-4 sm:px-10 overflow-hidden">
       <div className="relative z-10 container mx-auto">
 
         {/* Mobile Layout */}
@@ -192,7 +79,6 @@ export default function Doctor() {
                 backgroundImage: `url(${img1.src})`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
               }}
             >
               Dr. Tushar Mane
@@ -202,129 +88,83 @@ export default function Doctor() {
             </p>
           </motion.div>
 
-          {/* Mobile Images - Increased Height with Better Image Positioning */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            viewport={{ once: true }}
-          >
-            <div className="w-full h-96 rounded-2xl overflow-hidden bg-slate-800/30 backdrop-blur-sm border border-white/10">
-              <Swiper
-                modules={[Autoplay, Pagination]}
-                slidesPerView={1}
-                spaceBetween={10}
-                loop={true}
-                autoplay={{
-                  delay: 3500,
-                  disableOnInteraction: false,
-                  pauseOnMouseEnter: true
-                }}
-                pagination={{
-                  clickable: true,
-                  dynamicBullets: true
-                }}
-                onSlideChange={(swiper) => setCurrentSlide(swiper.realIndex)}
-                className="w-full h-full mobile-doctor-swiper"
-              >
-                {doctorImages.map((src, i) => (
-                  <SwiperSlide key={i}>
-                    <div className="relative w-full h-full">
-                      <Image
-                        src={src}
-                        alt={`Dr. Tushar Mane - Professional image ${i + 1}`}
-                        fill
-                        className="object-contain"
-                        sizes="100vw"
-                        priority={i === 0}
-                        quality={85}
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-transparent to-transparent" />
-                      <div className="absolute top-3 right-3 bg-amber-400/20 backdrop-blur-sm rounded-full px-2 py-1">
-                        <span className="text-white text-xs font-semibold">
-                          {i + 1}/{doctorImages.length}
-                        </span>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-            </div>
-          </motion.div>
+          {/* Mobile Images */}
+          <div className="w-full h-96 rounded-2xl overflow-hidden bg-slate-800/30 backdrop-blur-sm border border-white/10">
+            <Swiper
+              modules={[Autoplay, Pagination]}
+              slidesPerView={1}
+              loop
+              autoplay={{ delay: 3500, disableOnInteraction: false, pauseOnMouseEnter: true }}
+              pagination={{ clickable: true, dynamicBullets: true }}
+              onSlideChange={(swiper) => setCurrentSlide(swiper.realIndex)}
+              className="w-full h-full mobile-doctor-swiper"
+            >
+              {doctorImages.map((src, i) => (
+                <SwiperSlide key={i}>
+                  <div className="relative w-full h-full">
+                    <Image
+                      src={src}
+                      alt={`Dr. Tushar Mane - Professional image ${i + 1}`}
+                      fill
+                      className="object-contain"
+                      sizes="100vw"
+                      priority={i === 0}
+                      quality={85}
+                    />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
 
+          {/* Mobile Text + Show More */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
             viewport={{ once: true }}
             className="relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-4"
-            style={{
-              background: 'rgba(10, 23, 48, 0.3)',
-              backdropFilter: 'blur(20px)'
-            }}
           >
-            {(() => {
-              const [showMore, setShowMore] = useState(false);
-              const fullDescriptions = [
-                "Dr. Tushar Mane, a recognized dentist in Dombivli East, is highly skilled in dental care and advanced implant procedures, making him the preferred choice as a dentist near me. Dr. Mane specializes in a comprehensive range of dental services, including full mouth rehabilitation, dental implants, root canal treatment, dental veneers, teeth braces, pediatric dentistry, wisdom tooth extraction, teeth cleanings, and fillings, as well as complex treatments like the precise placement and restoration of full mouth reconstruction.",
-                "As the best dentist in Dombivli, Dr. Mane offers expertise in implantology, focusing on the surgical placement of dental implants to support various prostheses such as crowns, bridges, and dentures. His dedicated team collaborates closely with patients to assess their oral health needs and develop personalized treatment plans, ensuring smiles are rejuvenated and overall dental functionality is enhanced.",
-                "Discover exceptional dental care with Dr. Tushar Mane, the trusted dentist in Dombivli, serving patients in both Dombivli East. Contact us today to schedule an appointment and experience top‑tier dental expertise near you."
-              ];
+            <p className="text-slate-300 text-sm leading-relaxed mb-4">{fullDescriptions[0]}</p>
 
-              return (
-                <>
-                  <p className="text-slate-300 text-sm leading-relaxed mb-4">
-                    {fullDescriptions[0]}
-                  </p>
+            {showMore && (
+              <>
+                <p className="text-slate-300 text-sm leading-relaxed mb-4">{fullDescriptions[1]}</p>
+                <p className="text-slate-300 text-sm leading-relaxed mb-4">{fullDescriptions[2]}</p>
+              </>
+            )}
 
-                  {showMore && (
-                    <>
-                      <p className="text-slate-300 text-sm leading-relaxed mb-4">
-                        {fullDescriptions[1]}
-                      </p>
-                      <p className="text-slate-300 text-sm leading-relaxed mb-4">
-                        {fullDescriptions[2]}
-                      </p>
-                    </>
-                  )}
+            <button
+              onClick={() => setShowMore(!showMore)}
+              className="text-amber-400 hover:text-amber-300 font-semibold text-sm underline transition-colors duration-300 mb-4"
+            >
+              {showMore ? "View Less" : "View More"}
+            </button>
 
-                  <button
-                    onClick={() => setShowMore(!showMore)}
-                    className="text-amber-400 hover:text-amber-300 font-semibold text-sm underline transition-colors duration-300 mb-4"
-                  >
-                    {showMore ? 'View Less' : 'View More'}
-                  </button>
+            <div className="grid grid-cols-1 gap-2 mb-4">
+              {points.slice(0, 4).map((p, index) => (
+                <motion.div
+                  key={p.text}
+                  className="flex items-center gap-2"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                  viewport={{ once: true }}
+                >
+                  <span className="text-sm">{p.icon}</span>
+                  <span className="text-white/90 font-medium text-xs">{p.text}</span>
+                </motion.div>
+              ))}
+            </div>
 
-                  <div className="grid grid-cols-1 gap-2 mb-4">
-                    {points.slice(0, 4).map((p, index) => (
-                      <motion.div
-                        key={p.text}
-                        className="flex items-center gap-2"
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1, duration: 0.5 }}
-                        viewport={{ once: true }}
-                      >
-                        <span className="text-sm">{p.icon}</span>
-                        <span className="text-white/90 font-medium text-xs">{p.text}</span>
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  <motion.a
-                    href="#contact"
-                    className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-amber-400 to-amber-500 px-4 py-2 font-semibold text-[#061428] shadow-lg text-sm w-full justify-center"
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    Book Consultation
-                  </motion.a>
-
-                  <span className="pointer-events-none absolute -right-2 -bottom-2 h-12 w-12 rounded-full bg-amber-400/10 blur-xl" />
-                </>
-              );
-            })()}
+            <motion.a
+              href="#contact"
+              className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-amber-400 to-amber-500 px-4 py-2 font-semibold text-[#061428] shadow-lg text-sm w-full justify-center"
+              whileTap={{ scale: 0.98 }}
+            >
+              Book Consultation
+            </motion.a>
           </motion.div>
-
         </div>
 
         {/* Desktop Layout - Unchanged */}

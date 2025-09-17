@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, Navigation, EffectCoverflow } from "swiper/modules";
-import { useRef, useState } from 'react';
+import { useRef, useState } from "react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -24,73 +24,24 @@ function FloatingCard({ children, delay = 0 }) {
           duration: 1.2,
           type: "spring",
           stiffness: 80,
-          damping: 20
-        }
+          damping: 20,
+        },
       }}
       whileHover={{
         y: -20,
         rotateX: 5,
         scale: 1.02,
-        transition: { duration: 0.4 }
+        transition: { duration: 0.4 },
       }}
       viewport={{ once: true, amount: 0.3 }}
       className="transform-gpu"
       style={{
-        perspective: '1000px',
-        transformStyle: 'preserve-3d'
+        perspective: "1000px",
+        transformStyle: "preserve-3d",
       }}
     >
       {children}
     </motion.div>
-  );
-}
-
-// Mobile-optimized Swiper Component
-function MobileSwiper({ slides, activeSlide, setActiveSlide }) {
-  return (
-    <div className="block sm:hidden w-full h-64 rounded-2xl overflow-hidden bg-slate-800/30 backdrop-blur-sm border border-white/10">
-      <Swiper
-        modules={[Autoplay, Pagination]}
-        slidesPerView={1}
-        spaceBetween={10}
-        loop={true}
-        autoplay={{
-          delay: 3000,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true
-        }}
-        pagination={{
-          clickable: true,
-          dynamicBullets: true
-        }}
-        onSlideChange={(swiper) => setActiveSlide(swiper.realIndex)}
-        className="w-full h-full mobile-swiper"
-      >
-        {slides.map((src, i) => (
-          <SwiperSlide key={i}>
-            <div className="relative w-full h-full">
-              <Image
-                src={src}
-                alt={`Dental clinic image ${i + 1}`}
-                fill
-                className="object-cover"
-                sizes="100vw"
-                priority={i === 0}
-                quality={85}
-              />
-              {/* Mobile slide overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 via-transparent to-transparent" />
-              {/* Slide indicator */}
-              <div className="absolute top-3 right-3 bg-amber-400/20 backdrop-blur-sm rounded-full px-2 py-1">
-                <span className="text-white text-xs font-semibold">
-                  {i + 1}/{slides.length}
-                </span>
-              </div>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
   );
 }
 
@@ -99,7 +50,6 @@ const slides = [
   "/Images/about/2.jpg",
   "/Images/about/3.jpg",
   "/Images/about/4.jpg",
- 
   "/Images/about/9.jpg",
 ];
 
@@ -107,15 +57,24 @@ export default function AboutUs() {
   const sectionRef = useRef(null);
   const [activeSlide, setActiveSlide] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
+  const [showMore, setShowMore] = useState(false); // ✅ FIX: moved state here
+
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
 
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
+
+  // ✅ Description content moved outside JSX
+  const fullDescriptions = [
+    "Welcome to Dr. Mane's Dental Clinic & Implant Centre, your premier dental clinic in Dombivli East for cutting-edge dental care. Founded by Dr. Tushar Mane, a distinguished dental surgeon and Implantologist with over 17 years of expertise, our clinic epitomizes excellence in dental care.",
+    "Led by Dr. Mane, our expert team offers a comprehensive range of specialized services including full mouth rehabilitation, dental implants, root canal treatment, dental veneers, teeth braces, pediatric dentistry, wisdom teeth removal, and more. Whether you seek Cosmetic Smile Design or Clear Aligners tailored to your needs, we deliver exceptional care tailored to each individual.",
+    "When searching for the best dental clinic in Dombivli East or the best dental clinic near me, Dr. Mane's Dental Clinic is your top choice. We are committed to your dental health and well-being, offering personalized care and unparalleled expertise. Discover the difference with us today.",
+  ];
 
   return (
     <section
@@ -123,44 +82,37 @@ export default function AboutUs() {
       id="aboutus"
       className="relative min-h-screen bg-transparent overflow-hidden"
     >
-      {/* Enhanced CSS */}
+      {/* Styles kept same */}
       <style jsx global>{`
         .swiper {
           width: 100%;
           height: 100%;
           z-index: 10;
         }
-        
         .swiper-slide {
           background: transparent;
           border-radius: 24px;
           overflow: hidden;
         }
-        
-        /* Mobile-specific swiper styles */
         .mobile-swiper .swiper-slide {
           border-radius: 16px;
         }
-        
         .mobile-swiper .swiper-pagination {
           bottom: 8px !important;
         }
-        
         .mobile-swiper .swiper-pagination-bullet {
           width: 8px !important;
           height: 8px !important;
           background: rgba(255, 255, 255, 0.4) !important;
           margin: 0 3px !important;
         }
-        
         .mobile-swiper .swiper-pagination-bullet-active {
-          background: #FCD34D !important;
+          background: #fcd34d !important;
           transform: scale(1.2);
         }
-        
-        /* Desktop swiper styles */
-        .swiper-button-next, .swiper-button-prev {
-          color: #FCD34D !important;
+        .swiper-button-next,
+        .swiper-button-prev {
+          color: #fcd34d !important;
           background: rgba(15, 23, 42, 0.9) !important;
           width: 50px !important;
           height: 50px !important;
@@ -176,54 +128,48 @@ export default function AboutUs() {
           justify-content: center !important;
           border: 2px solid rgba(252, 211, 77, 0.3) !important;
         }
-
-        .swiper-button-next:hover, .swiper-button-prev:hover {
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
           transform: scale(1.1) !important;
           background: rgba(252, 211, 77, 0.2) !important;
           box-shadow: 0 8px 25px rgba(252, 211, 77, 0.3) !important;
           border-color: rgba(252, 211, 77, 0.6) !important;
         }
-
-        .swiper-button-next:after, .swiper-button-prev:after {
+        .swiper-button-next:after,
+        .swiper-button-prev:after {
           font-size: 18px !important;
           font-weight: bold !important;
-          color: #FCD34D !important;
+          color: #fcd34d !important;
         }
-        
         .swiper-pagination {
           bottom: 0px !important;
         }
-        
         .swiper-pagination-bullet {
           width: 12px !important;
           height: 12px !important;
           background: rgba(255, 255, 255, 0.3) !important;
           transition: all 0.3s ease !important;
         }
-        
         .swiper-pagination-bullet-active {
-          background: #FCD34D !important;
+          background: #fcd34d !important;
           transform: scale(1.3);
           box-shadow: 0 0 20px rgba(252, 211, 77, 0.8);
         }
-
         .glass-effect {
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
           background: rgba(255, 255, 255, 0.05);
           border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
         .text-glow {
           text-shadow: 0 0 20px rgba(252, 211, 77, 0.5);
         }
       `}</style>
 
       <div className="container mx-auto px-4 sm:px-6 py-12 sm:py-20 relative z-10">
-
-        {/* Mobile Layout - Reordered: Heading → Images → Description */}
+        {/* Mobile Layout */}
         <div className="block sm:hidden space-y-6">
-          {/* Mobile Heading */}
+          {/* Heading */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -244,14 +190,13 @@ export default function AboutUs() {
             </h2>
           </motion.div>
 
-          {/* Mobile Images - Increased Height */}
+          {/* Images */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.3 }}
             viewport={{ once: true }}
           >
-            {/* Updated MobileSwiper with increased height */}
             <div className="w-full h-80 rounded-2xl overflow-hidden bg-slate-800/30 backdrop-blur-sm border border-white/10">
               <Swiper
                 modules={[Autoplay, Pagination]}
@@ -261,11 +206,11 @@ export default function AboutUs() {
                 autoplay={{
                   delay: 3000,
                   disableOnInteraction: false,
-                  pauseOnMouseEnter: true
+                  pauseOnMouseEnter: true,
                 }}
                 pagination={{
                   clickable: true,
-                  dynamicBullets: true
+                  dynamicBullets: true,
                 }}
                 onSlideChange={(swiper) => setActiveSlide(swiper.realIndex)}
                 className="w-full h-full mobile-swiper"
@@ -282,9 +227,7 @@ export default function AboutUs() {
                         priority={i === 0}
                         quality={85}
                       />
-                      {/* Mobile slide overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900/30 via-transparent to-transparent" />
-                      {/* Slide indicator */}
                       <div className="absolute top-3 right-3 bg-amber-400/20 backdrop-blur-sm rounded-full px-2 py-1">
                         <span className="text-white text-xs font-semibold">
                           {i + 1}/{slides.length}
@@ -297,7 +240,7 @@ export default function AboutUs() {
             </div>
           </motion.div>
 
-          {/* Mobile Description - Full Content with View More */}
+          {/* Description with View More */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -305,45 +248,25 @@ export default function AboutUs() {
             viewport={{ once: true }}
             className="space-y-4 text-slate-300 text-sm leading-relaxed"
           >
-            {(() => {
-              const [showMore, setShowMore] = useState(false);
-              const fullDescriptions = [
-                "Welcome to Dr. Mane's Dental Clinic & Implant Centre, your premier dental clinic in Dombivli East for cutting-edge dental care. Founded by Dr. Tushar Mane, a distinguished dental surgeon and Implantologist with over 17 years of expertise, our clinic epitomizes excellence in dental care.",
-                "Led by Dr. Mane, our expert team offers a comprehensive range of specialized services including full mouth rehabilitation, dental implants, root canal treatment, dental veneers, teeth braces, pediatric dentistry, wisdom teeth removal, and more. Whether you seek Cosmetic Smile Design or Clear Aligners tailored to your needs, we deliver exceptional care tailored to each individual.",
-                "When searching for the best dental clinic in Dombivli East or the best dental clinic near me, Dr. Mane's Dental Clinic is your top choice. We are committed to your dental health and well-being, offering personalized care and unparalleled expertise. Discover the difference with us today."
-              ];
-
-              return (
-                <>
-                  {/* First paragraph always visible */}
-                  <p>{fullDescriptions[0]}</p>
-
-                  {/* Remaining paragraphs with View More functionality */}
-                  {showMore && (
-                    <>
-                      <p>{fullDescriptions[1]}</p>
-                      <p>{fullDescriptions[2]}</p>
-                    </>
-                  )}
-
-                  {/* View More / View Less Button */}
-                  <button
-                    onClick={() => setShowMore(!showMore)}
-                    className="text-amber-400 hover:text-amber-300 font-semibold text-sm underline transition-colors duration-300"
-                  >
-                    {showMore ? 'View Less' : 'View More'}
-                  </button>
-
-                  {/* Mobile CTA */}
-                  <motion.button
-                    className="w-full mt-4 py-3 bg-gradient-to-r from-amber-400 to-amber-600 text-slate-900 font-bold rounded-xl text-base"
-                    whileTap={{ scale: 0.98 }}
-                  >
-                     Book Your Consultation
-                  </motion.button>
-                </>
-              );
-            })()}
+            <p>{fullDescriptions[0]}</p>
+            {showMore && (
+              <>
+                <p>{fullDescriptions[1]}</p>
+                <p>{fullDescriptions[2]}</p>
+              </>
+            )}
+            <button
+              onClick={() => setShowMore(!showMore)}
+              className="text-amber-400 hover:text-amber-300 font-semibold text-sm underline transition-colors duration-300"
+            >
+              {showMore ? "View Less" : "View More"}
+            </button>
+            <motion.button
+              className="w-full mt-4 py-3 bg-gradient-to-r from-amber-400 to-amber-600 text-slate-900 font-bold rounded-xl text-base"
+              whileTap={{ scale: 0.98 }}
+            >
+              Book Your Consultation
+            </motion.button>
           </motion.div>
         </div>
 
@@ -433,7 +356,7 @@ export default function AboutUs() {
                     transition={{ duration: 0.3 }}
                   />
                   <span className="relative z-10 flex items-center gap-2 cursor-pointer">
-                     Book Your Consultation
+                    Book Your Consultation
                   </span>
                 </motion.button>
               </motion.div>
