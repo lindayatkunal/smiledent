@@ -11,6 +11,7 @@ import { MdHealing } from 'react-icons/md';
 import Image from 'next/image';
 import img1 from "/public/Images/text_bg.jpg"
 import img2 from "/public/Images/about/1.jpg"
+import img3 from "/public/Images/Hero/clinic3.jpg"
 
 const bruno = Playfair_Display({
   weight: "400",
@@ -180,7 +181,7 @@ export default function PageWithHeroAndUSP() {
       {/* PART 1: The Main Hero Section */}
       <section className="relative w-full h-screen flex items-center justify-center text-white">
         <Image
-          src="/images/hero/clinic3.jpg"
+          src={img3}
           alt="Clinic Hero"
           fill
           priority
