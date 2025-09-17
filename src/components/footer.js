@@ -350,11 +350,15 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="inline-block"
           >
-            <Image
-              src="/Images/footer_copyright.png"
-              alt="Mastermind Web Developers"
-              className="h-20 w-auto mx-auto"
-            />
+            <div className="relative h-20 w-40 mx-auto">   {/* Added w-40 */}
+              <Image
+                src="/Images/footer_copyright.png"
+                alt="Mastermind Web Developers"
+                fill
+                className="object-contain"
+              />
+            </div>
+
           </a>
         </div>
       </div>
@@ -533,8 +537,11 @@ const Footer = () => {
             <Image
               src="/Images/footer_copyright.png"
               alt="Mastermind Web Developers"
-              className="h-32 w-auto"
+              width={200}   // adjust based on your image's real dimensions
+              height={80}   // adjust accordingly
+              className="h-32 w-auto object-contain"
             />
+
           </a>
         </div>
       </div>
