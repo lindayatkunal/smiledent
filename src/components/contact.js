@@ -172,15 +172,7 @@ export default function Contact() {
 
                 {/* Mobile Checkbox and Submit */}
                 <div className="space-y-3">
-                  <label className="inline-flex items-center gap-2 text-slate-300 text-xs">
-                    <input
-                      type="checkbox"
-                      name="consent"
-                      required
-                      className="h-4 w-4 rounded border-white/20 bg-[#061428]/60 text-amber-400 focus:ring-amber-400/60 focus:ring-1"
-                    />
-                    I agree to be contacted regarding my enquiry.
-                  </label>
+               
 
                   <motion.button
                     type="submit"
@@ -412,15 +404,7 @@ export default function Contact() {
                   </div>
 
                   <div className="flex items-center justify-between gap-4 flex-wrap">
-                    <label className="inline-flex items-center gap-3 text-slate-300 text-sm">
-                      <input
-                        type="checkbox"
-                        name="consent"
-                        required
-                        className="h-5 w-5 rounded border-white/20 bg-[#061428]/60 text-amber-400 focus:ring-amber-400/60 focus:ring-2"
-                      />
-                      I agree to be contacted regarding my enquiry.
-                    </label>
+             
 
                     <motion.button
                       type="submit"
