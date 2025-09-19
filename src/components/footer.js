@@ -137,7 +137,7 @@ function SocialOrbitRings() {
           <Icon>
             <div className="pointer-events-auto">
               <TiltIcon
-                href="https://instagram.com/"
+                href="https://www.instagram.com/drmanedental/"
                 label="Instagram"
                 colorClass="bg-gradient-to-br from-pink-500/30 to-purple-500/30"
                 glowClass="shadow-[0_0_20px_0_rgba(244,114,182,0.4)]"
@@ -154,7 +154,7 @@ function SocialOrbitRings() {
           <Icon>
             <div className="pointer-events-auto">
               <TiltIcon
-                href="https://youtube.com/"
+                href="https://www.youtube.com/@Dr.ManeDentalClinic"
                 label="YouTube"
                 colorClass="bg-gradient-to-br from-red-500/30 to-red-600/30"
                 glowClass="shadow-[0_0_20px_0_rgba(239,68,68,0.4)]"
@@ -171,7 +171,7 @@ function SocialOrbitRings() {
           <Icon>
             <div className="pointer-events-auto">
               <TiltIcon
-                href="https://linkedin.com/"
+                href="https://www.linkedin.com/company/dr-mane-s-dental-clinic-implant-centre/"
                 label="LinkedIn"
                 colorClass="bg-gradient-to-br from-cyan-500/30 to-blue-500/30"
                 glowClass="shadow-[0_0_20px_0_rgba(34,211,238,0.4)]"
@@ -196,7 +196,7 @@ function SocialOrbitRings() {
           <Icon>
             <div className="pointer-events-auto">
               <TiltIcon
-                href="https://facebook.com/"
+                href="https://www.facebook.com/drmanesdentalclinic"
                 label="Facebook"
                 colorClass="bg-gradient-to-br from-blue-500/20 to-blue-600/20"
                 glowClass="shadow-[0_0_15px_0_rgba(59,130,246,0.3)]"
@@ -294,10 +294,10 @@ const Footer = () => {
             {/* Mobile Social Links - Simple Row */}
             <div className="flex justify-center gap-4 mt-4">
               {[
-                { href: "https://instagram.com/", icon: <FaInstagram />, color: "bg-gradient-to-br from-fuchsia-500/30 to-rose-500/30" },
-                { href: "https://facebook.com/", icon: <FaFacebookF />, color: "bg-blue-500/20" },
-                { href: "https://youtube.com/", icon: <FaYoutube />, color: "bg-red-500/20" },
-                { href: "https://linkedin.com/", icon: <FaLinkedinIn />, color: "bg-cyan-500/20" }
+                { href: "https://www.instagram.com/drmanedental/", icon: <FaInstagram />, color: "bg-gradient-to-br from-fuchsia-500/30 to-rose-500/30" },
+                { href: "https://www.facebook.com/drmanesdentalclinic", icon: <FaFacebookF />, color: "bg-blue-500/20" },
+                { href: "https://www.youtube.com/@Dr.ManeDentalClinic", icon: <FaYoutube />, color: "bg-red-500/20" },
+                { href: "https://www.linkedin.com/company/dr-mane-s-dental-clinic-implant-centre/", icon: <FaLinkedinIn />, color: "bg-cyan-500/20" }
               ].map((social, i) => (
                 <motion.a
                   key={i}
